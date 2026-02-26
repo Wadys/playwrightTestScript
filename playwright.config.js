@@ -1,0 +1,28 @@
+// @ts-check
+import { defineConfig, devices } from '@playwright/test';
+
+
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ */
+const config = ({
+  testDir: './tests',
+  timeout: 20 * 1000,
+  expect:{
+    timeout: 5000,
+  },
+  reporter: 'html',
+  use: {
+    // browserName: 'chromium'
+    // browserName: 'chromium',
+    browserName: 'firefox',
+    // browserName: 'webkit',
+    
+    
+    headless: false, //True no UI :: False with UI
+    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+  
+  },
+  
+});
+module.exports = config
