@@ -1,6 +1,6 @@
 const {test, expect} = require('@playwright/test');
 
-test.only('First Playwright Test', async ({browser}) =>{
+test('First Playwright Test', async ({browser}) =>{
 //Chrome - plugins/ cookies
     const context = await browser.newContext();
     const page = await context.newPage()
