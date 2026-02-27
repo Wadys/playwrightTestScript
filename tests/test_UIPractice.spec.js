@@ -4,9 +4,9 @@ const url = "https://rahulshettyacademy.com/client/";
 const userName = "testemail@testmail.com";
 const password = "3Fm9nmp@t#xW.Hq";
 
-test.only("UI Practice Test", async ({browser}) => {
-    const context = await browser.newContext();
-    const page = await context.newPage()
+test("UI Practice Test", async ({page}) => {
+    // const context = await browser.newContext();
+    // const page = await context.newPage()
     const userNameLocator = page.locator("#userEmail")
     const passwordLocator = page.locator("#userPassword")
     const loginBtn = page.locator("#login")
@@ -16,6 +16,8 @@ test.only("UI Practice Test", async ({browser}) => {
     await userNameLocator.fill(userName);
     await passwordLocator.fill(password);
     await loginBtn.click();
-    console.log(await cardTitles.first().textContent());
+    await cardTitles.first().waitFor();
+    const allTitles = await cardTitles.allTextContents();
+    console.log(allTitles);
 })
 
