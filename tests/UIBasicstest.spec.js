@@ -2,15 +2,15 @@ const {test, expect, page} = require('@playwright/test');
 const url = "https://rahulshettyacademy.com/loginpagePractise/";
 const userName = "rahulshettyacademy";
 const password = "Learning@830$3mK2";
-// const userNameLocator =  page.locator("#username")
-    // const passwordLocator = page.locator("#password")
-    // const signInBtnLocator = page.locator("#signInBtn")
-    // const cardTitlesLocator = page.locator(".card-body a");
+
 test('First Playwright Test', async ({browser}) =>{
 //Chrome - plugins/ cookies
     const context = await browser.newContext();
     const page = await context.newPage()
-    
+    const userNameLocator =  page.locator("#username")
+    const passwordLocator = page.locator("#password")
+    const signInBtnLocator = page.locator("#signInBtn")
+    const cardTitlesLocator = page.locator(".card-body a");
   //Chrome - plugins/ cookies
     await page.goto(url);
     // css, xpath, text, id, class    
@@ -40,16 +40,12 @@ test('Page Playwright Test', async ({page}) =>{
     await expect(page).toHaveTitle("Google");
 });
 
-test.only('UI Controls', async ({page}) => {
-    const userNameLocator = page.locator("#username");
-    const passwordLocator = page.locator("#password");
-    const signInBtnLocator = page.locator("#signInBtn");
+test('UI Controls', async ({page}) => {
     const dropdownLocator = page.locator("select.form-control");
     const checkbox = page.locator("#terms");
     const radioBtn = page.locator(".radiotextsty");
+    const documentsLink = page.locator("a[href*='documents-request']");
     await page.goto(url);
-    await userNameLocator.fill(userName);
-    await passwordLocator.fill(password);
     await dropdownLocator.selectOption("consult");
     await radioBtn.last().click();
     await page.locator("#okayBtn").click();
@@ -60,8 +56,24 @@ test.only('UI Controls', async ({page}) => {
     console.log(await checkbox.isChecked());
     await checkbox.uncheck();
     await expect(checkbox).not.toBeChecked();
+    expect(await checkbox.isChecked()).toBeFalsy();
     console.log(await checkbox.isChecked());
-    
-    // await signInBtn.click();
+    await expect(documentsLink).toHaveAttribute("class", "blinkingText");
     // await page.pause(); Waits and create a pause
+});
+
+test.only('Child Window Handling', async ({browser}) => {
+    const context = await browser.newContext();
+    const page = await context.newPage()
+    await page.goto(url);
+    const documentsLink = page.locator("a[href*='documents-request']");
+    const [newPage] = await Promise.all([
+        context.waitForEvent("page"), //listens for the new page event and returns the new page object, pending, rejected, fulfilled
+        documentsLink.click(), 
+    ]);//New page will open after clicking the link and we are waiting for that page to open before moving to the next line of code 
+    const text = await newPage.locator(".red").textContent();
+    const arrayText = text.split("@");
+    const domain = arrayText[1].split(" ")[0];
+    await page.locator("#username").fill(domain);
+    console.log(await page.locator("#username").inputValue());
 });
