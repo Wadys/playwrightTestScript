@@ -4,7 +4,7 @@ const url = "https://rahulshettyacademy.com/client/";
 const userName = "testemail@testmail.com";
 const password = "3Fm9nmp@t#xW.Hq";
 
-test.only("UI Practice Test", async ({page}) => {
+test("UI Practice Test", async ({page}) => {
     const userNameLocator = page.locator("#userEmail")
     const passwordLocator = page.locator("#userPassword")
     const loginBtn = page.locator("#login")
@@ -32,7 +32,7 @@ test.only("UI Practice Test", async ({page}) => {
     const bool = await page.locator("h3:has-text('" + productName + "')").isVisible();
     expect(bool).toBeTruthy();
     await checkOutBtn.click();
-    await page.locator("[placeholder*='Country']").pressSequentially("cost");
+    await page.locator("[placeholder*='Country']").pressSequentially("cost",{delay:150});
     const dropwDown = page.locator(".ta-results")
     await dropwDown.waitFor();
     const dropDownCount = await dropwDown.locator("button").count();
