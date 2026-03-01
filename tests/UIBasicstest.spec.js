@@ -62,7 +62,7 @@ test('UI Controls', async ({page}) => {
     // await page.pause(); Waits and create a pause
 });
 
-test.only('Child Window Handling', async ({browser}) => {
+test('Child Window Handling', async ({browser}) => {
     const context = await browser.newContext();
     const page = await context.newPage()
     await page.goto(url);
