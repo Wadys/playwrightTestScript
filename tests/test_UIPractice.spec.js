@@ -4,7 +4,7 @@ const url = "https://rahulshettyacademy.com/client/";
 const userName = "testemail@testmail.com";
 const password = "3Fm9nmp@t#xW.Hq";
 
-test("UI Practice Test", async ({page}) => {
+test.only("UI Practice Test", async ({page}) => {
     const userNameLocator = page.locator("#userEmail")
     const passwordLocator = page.locator("#userPassword")
     const loginBtn = page.locator("#login")
@@ -18,8 +18,8 @@ test("UI Practice Test", async ({page}) => {
     await passwordLocator.fill(password);
     await loginBtn.click();
     await cardTitles.first().waitFor();
-    // const allTitles = await cardTitles.allTextContents();
-    // console.log(allTitles);
+    const allTitles = await cardTitles.allTextContents();
+    console.log(allTitles);
     const count = await products.count();
     for(let i=0; i<count; i++){
         if (await products.nth(i).locator("b").textContent() === productName){
@@ -43,5 +43,10 @@ test("UI Practice Test", async ({page}) => {
             break;
         }   
     }
+    expect(page.locator(".user__name [type='text']").first()).toHaveText(userName);
+    await page.locator(".action__submit").click();
+    await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+    const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+    console.log(orderId);
     await page.pause();
 });

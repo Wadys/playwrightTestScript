@@ -11,7 +11,7 @@ test.beforeAll( async () => {
     response = await apiUtils.createOrder(orderpayload);
 });
 
-test.only("Client API Test", async ({page}) =>{
+test("Client API Test", async ({page}) =>{
     const apiUtils = new ApiUtils(page, loginpayload);
     await page.addInitScript(value => {
         window.localStorage.setItem("token", value);
