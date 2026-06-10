@@ -6,10 +6,10 @@ test('@Webs Client App login', async ({page}) => {
     const email = "testemail@testmail.com";
     const productName = "ZARA COAT 3";
     const products = page.locator(".card-body");
-    await page.goto("https://rahulshettyacademy.com/client/");
+    await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
     await page.getByPlaceholder("email@example.com").fill(email);
     await page.getByPlaceholder("enter your passsword").fill("3Fm9nmp@t#xW.Hq");
-    await page.getByRole("button", {name: "Login"}).click();
+    await page.locator('#login').click();
 //Loads Page after Login
     await page.waitForLoadState("networkidle");
     await page.locator(".card-body").first().waitFor();

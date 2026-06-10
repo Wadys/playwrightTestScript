@@ -1,0 +1,3 @@
+npx playwright codegen https://testwebsite.com  ///This runs a recorder of what you are doing
+npx playwright test llc.spec.js --debug         ///This runs a file in debug mode
+npx playwright test --ui                        ///This runs a UI with all the tests

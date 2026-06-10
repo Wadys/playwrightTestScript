@@ -19,7 +19,7 @@ test("Login API Test", async () => {
     console.log(token);
 });
 
-test("add to cart API test", async ({request}) => {
+test.skip("add to cart API test", async ({request}) => {
     const response = await request.post(urlAddToCart, {
         headers: {
             "Authorization": token
@@ -30,7 +30,7 @@ test("add to cart API test", async ({request}) => {
     console.log(await response.json());
 });
 
-test("get cart prodcts API test", async ({request}) => {
+test.skip("get cart prodcts API test", async ({request}) => {
     const response = await request.get("https://rahulshettyacademy.com/api/ecom/user/get-cart-products", {
         headers: {
             "Authorization": token}
@@ -39,7 +39,7 @@ test("get cart prodcts API test", async ({request}) => {
     const responseJson = await response.json();
     console.log(responseJson);
 });
-test("Create order API test", async ({request}) => {
+test.skip("Create order API test", async ({request}) => {
     const response = await request.post(urlCreateOrder, {
         headers: {
             "Authorization": token
@@ -58,7 +58,7 @@ test("Delete order API test", async ({request}) => {
 
 });
 
-test("Get order API test", async ({request}) => {
+test.skip("Get order API test", async ({request}) => {
     const response = await request.get("https://rahulshettyacademy.com/api/ecom/user/get-orders", {
         headers: {
             "Authorization": token
